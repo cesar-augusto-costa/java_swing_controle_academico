@@ -1,4 +1,4 @@
-package prof.ArrayInterface;
+package dev.view;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;

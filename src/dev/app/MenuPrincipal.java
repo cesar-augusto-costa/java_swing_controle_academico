@@ -1,9 +1,13 @@
-package prof.ArrayInterface;
+package dev.app;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dev.view.CadastroAlunos;
+import dev.view.CadastroProfessores;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -43,7 +47,7 @@ public class MenuPrincipal extends JFrame {
         JButton btnCadastroAluno = new JButton("Cadastrar Aluno");
         btnCadastroAluno.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                CadastroAluno frameAluno = new CadastroAluno();
+                CadastroAlunos frameAluno = new CadastroAlunos();
                 frameAluno.setVisible(true);
             }
         });
@@ -54,7 +58,7 @@ public class MenuPrincipal extends JFrame {
         JButton btnCadastroProfessor = new JButton("Cadastrar Professor");
         btnCadastroProfessor.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                CadastroProfessor frameProfessor = new CadastroProfessor();
+                CadastroProfessores frameProfessor = new CadastroProfessores();
                 frameProfessor.setVisible(true);
             }
         });
