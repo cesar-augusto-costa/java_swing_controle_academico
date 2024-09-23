@@ -1,6 +1,7 @@
 package dev.app;
 
 import java.awt.EventQueue;
+import java.awt.Point;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,10 +14,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class MenuPrincipal extends JFrame {
 
     private JPanel contentPane;
+    private Point initialLocation;
 
     /**
      * Launch the application.
@@ -39,12 +43,35 @@ public class MenuPrincipal extends JFrame {
      */
     public MenuPrincipal() {
         setTitle("Menu Principal");
+
+        // Define a ação ao fechar a janela para encerrar o programa
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Define as dimensões da janela
         setBounds(100, 100, 400, 250);
+
+        // Centraliza a janela na tela
+        setLocationRelativeTo(null);
+
+        // Impede o redimensionamento da janela
+        setResizable(false);
+
+        // Armazena a posição inicial da janela
+        initialLocation = getLocation();
+
+        // Adiciona um ouvinte para monitorar a movimentação da janela
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentMoved(ComponentEvent e) {
+                // Sempre redefine a posição original para evitar que a janela seja movida
+                setLocation(initialLocation);
+            }
+        });
+
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
-        
+
         JLabel lblTitulo = new JLabel("Sistema de Gestão");
         lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 
