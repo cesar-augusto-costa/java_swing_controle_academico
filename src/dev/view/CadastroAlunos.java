@@ -18,6 +18,10 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
 
+/**
+ * Classe responsável pelo cadastro de alunos, permitindo a inserção de informações
+ * como nome, matrícula, curso e sexo, além de exibir uma lista dos alunos cadastrados.
+ */
 public class CadastroAlunos extends JFrame {
 
     private JPanel contentPane;
@@ -32,6 +36,9 @@ public class CadastroAlunos extends JFrame {
 
     private ButtonGroup grupoSexo;
 
+    /**
+     * Método principal para iniciar a aplicação.
+     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -45,10 +52,19 @@ public class CadastroAlunos extends JFrame {
         });
     }
 
+    /**
+     * Construtor responsável por inicializar o frame de cadastro de alunos.
+     * Configura a interface, centraliza a janela e impede o redimensionamento.
+     */
     public CadastroAlunos() {
         setTitle("Cadastro de Alunos");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        // Define o tamanho da janela e a impede de ser redimensionada
         setBounds(100, 100, 500, 350);
+        setResizable(false);
+        setLocationRelativeTo(null);  // Centraliza a janela
+
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -98,6 +114,7 @@ public class CadastroAlunos extends JFrame {
             }
         });
 
+        // Configuração do layout
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
             gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -148,6 +165,10 @@ public class CadastroAlunos extends JFrame {
         contentPane.setLayout(gl_contentPane);
     }
 
+    /**
+     * Método responsável por cadastrar um aluno e validar os campos obrigatórios.
+     * Exibe mensagens de erro ou sucesso com base na validação.
+     */
     private void cadastrarAluno() {
         try {
             String nome = textFieldNome.getText();
@@ -167,15 +188,16 @@ public class CadastroAlunos extends JFrame {
 
             JOptionPane.showMessageDialog(this, "Aluno " + nome + " cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
-            textFieldNome.setText("");
-            textFieldMatricula.setText("");
-            textFieldCurso.setText("");
-            grupoSexo.clearSelection();
+            limparCampos();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar o aluno.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    /**
+     * Método responsável por exibir a lista de alunos cadastrados.
+     * Caso não haja alunos, uma mensagem informativa é exibida.
+     */
     private void exibirListaAlunos() {
         if (listaNomes.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nenhum aluno cadastrado.", "Informação", JOptionPane.INFORMATION_MESSAGE);
@@ -193,5 +215,15 @@ public class CadastroAlunos extends JFrame {
         }
 
         JOptionPane.showMessageDialog(this, listaAlunos.toString(), "Lista de Alunos", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Método para limpar os campos de entrada após o cadastro de um aluno.
+     */
+    private void limparCampos() {
+        textFieldNome.setText("");
+        textFieldMatricula.setText("");
+        textFieldCurso.setText("");
+        grupoSexo.clearSelection();
     }
 }

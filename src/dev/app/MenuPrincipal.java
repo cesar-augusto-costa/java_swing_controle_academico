@@ -11,35 +11,39 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+/**
+ * Classe que representa o Menu Principal da aplicação de Sistema de Gestão.
+ * Contém opções para acessar as telas de cadastro de alunos e professores.
+ */
 public class MenuPrincipal extends JFrame {
 
     private JPanel contentPane;
     private Point initialLocation;
 
     /**
-     * Launch the application.
+     * Método principal que inicia a aplicação.
+     * 
+     * @param args Argumentos da linha de comando (não utilizados).
      */
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    MenuPrincipal frame = new MenuPrincipal();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                MenuPrincipal frame = new MenuPrincipal();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
 
     /**
-     * Create the frame.
+     * Construtor da classe MenuPrincipal.
+     * Inicializa os componentes gráficos e configura a interface da janela.
      */
     public MenuPrincipal() {
         setTitle("Menu Principal");
@@ -59,11 +63,10 @@ public class MenuPrincipal extends JFrame {
         // Armazena a posição inicial da janela
         initialLocation = getLocation();
 
-        // Adiciona um ouvinte para monitorar a movimentação da janela
+        // Adiciona um ouvinte para manter a janela fixa na posição original
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentMoved(ComponentEvent e) {
-                // Sempre redefine a posição original para evitar que a janela seja movida
                 setLocation(initialLocation);
             }
         });
@@ -75,26 +78,19 @@ public class MenuPrincipal extends JFrame {
         JLabel lblTitulo = new JLabel("Sistema de Gestão");
         lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 
+        // Configura botão para cadastro de alunos
         JButton btnCadastroAluno = new JButton("Cadastrar Aluno");
         btnCadastroAluno.setFont(new Font("Tahoma", Font.PLAIN, 14));
         btnCadastroAluno.setMnemonic('A'); // Atalho Alt + A
-        btnCadastroAluno.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CadastroAlunos frameAluno = new CadastroAlunos();
-                frameAluno.setVisible(true);
-            }
-        });
+        btnCadastroAluno.addActionListener(e -> abrirTelaCadastroAlunos());
 
+        // Configura botão para cadastro de professores
         JButton btnCadastroProfessor = new JButton("Cadastrar Professor");
         btnCadastroProfessor.setFont(new Font("Tahoma", Font.PLAIN, 14));
         btnCadastroProfessor.setMnemonic('P'); // Atalho Alt + P
-        btnCadastroProfessor.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CadastroProfessores frameProfessor = new CadastroProfessores();
-                frameProfessor.setVisible(true);
-            }
-        });
+        btnCadastroProfessor.addActionListener(e -> abrirTelaCadastroProfessores());
 
+        // Define o layout do painel
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
             gl_contentPane.createParallelGroup(Alignment.CENTER)
@@ -114,5 +110,21 @@ public class MenuPrincipal extends JFrame {
                     .addComponent(btnCadastroProfessor, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
         );
         contentPane.setLayout(gl_contentPane);
+    }
+
+    /**
+     * Abre a tela de cadastro de alunos.
+     */
+    private void abrirTelaCadastroAlunos() {
+        CadastroAlunos frameAluno = new CadastroAlunos();
+        frameAluno.setVisible(true);
+    }
+
+    /**
+     * Abre a tela de cadastro de professores.
+     */
+    private void abrirTelaCadastroProfessores() {
+        CadastroProfessores frameProfessor = new CadastroProfessores();
+        frameProfessor.setVisible(true);
     }
 }
