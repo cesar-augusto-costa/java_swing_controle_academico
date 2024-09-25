@@ -12,6 +12,9 @@ import javax.swing.JRadioButton;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
@@ -187,10 +190,30 @@ public class CadastroAlunos extends JFrame {
             listaSexos.add(sexo);
 
             JOptionPane.showMessageDialog(this, "Aluno " + nome + " cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+            
+            salvarEmArquivo(nome, matricula, dataNascimento, curso, status);
+            
             limparCampos();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar o aluno.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void salvarEmArquivo(String nome, String matricula, String dataNascimento, String curso, String status) {
+        try (FileWriter writer = new FileWriter("alunos.txt", true)){
+            writer.write("Nome: " + nome + "\n");
+            writer.write("Matrícula: " + matricula + "\n");
+            writer.write("Data de Nascimento: " + dataNascimento + "\n");
+            writer.write("Curso: " + curso + "\n");
+            writer.write("Status: " + status + "\n");
+            writer.write("----------------------------------------" + "\n");
+
+            File file = new File("alunos.txt");
+            System.out.println("Arquivo salvo em: " + file.getAbsolutePath());
+            
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar os dados no arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
 
